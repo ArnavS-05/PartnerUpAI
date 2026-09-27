@@ -1,0 +1,12 @@
+node_modules/
+dist/
+dist-server/
+dist-tasks/
+.data/
+.env
+.env.*
+!.env.example
+*.db
+*.db-*
+*.log
+coverage/
