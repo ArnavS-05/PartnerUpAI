@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String @id
+  email        String @unique
+  passwordHash String?
+  createdAt    String
+}
+
+model Session {
+  id        String @id
+  userId    String
+  createdAt String
+  @@index([userId])
+}
+
+model Profile {
+  id      String @id
+  userId  String? @unique
+  payload String
+}
+
+model PartnerDNA {
+  id        String @id
+  profileId String @unique
+  payload   String
+}
+
+model MutualRequest {
+  id        String @id
+  senderId  String
+  targetId  String
+  createdAt Float
+  expiresAt Float
+  status    String
+  matchedAt Float?
+  @@index([senderId, createdAt])
+  @@index([targetId, status])
+}
+
+model MutualSearch {
+  id         String @id
+  searcherId String
+  targetId   String
+  month      String
+  @@unique([searcherId, targetId, month])
+}
+
+model MutualMatch {
+  id            String @id
+  userAId       String
+  userBId       String
+  matchedAt     Float
+  earliestEndAt Float
+  active        Boolean
+}
+
+model PendingMutualIdentity {
+  id        String @id
+  ownerId   String
+  name      String
+  active    Boolean
+  createdAt String
+  payload   String
+  @@index([ownerId, active])
+}
+
+model ScoutRequest {
+  id        String @id
+  ownerId   String
+  rawText   String
+  active    Boolean
+  createdAt String
+  payload   String
+  @@index([ownerId, active])
+}
+
+model ScoutConnection {
+  id      String @id
+  ownerId String
+  active  Boolean
+  payload String
+}
+
+model Notification {
+  id        String @id
+  ownerId   String
+  title     String
+  body      String
+  page      String
+  read      Boolean
+  createdAt String
+  @@index([ownerId, read])
+}
+
+// Variable structured profile fields are serialized JSON in SQLite.
+// Collection rows retain the deterministic engine's typed inputs.
+model AppRecord {
+  id         String @id
+  collection String
+  payload    String
+  @@index([collection])
+}

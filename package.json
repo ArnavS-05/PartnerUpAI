@@ -1,0 +1,55 @@
+{
+  "name": "partner-up-ai",
+  "version": "0.1.0",
+  "description": "Partner Up AI — AI that helps humans find the humans they need.",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5176 --configLoader runner",
+    "build": "npm run typecheck && vite build --configLoader runner && npm run build:server",
+    "build:server": "vite build --ssr server/prod.ts --outDir dist-server --configLoader runner",
+    "start": "node dist-server/prod.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run --configLoader runner",
+    "db:generate": "prisma generate",
+    "db:migrate": "node scripts/database-prepare.mjs && prisma migrate deploy",
+    "db:seed": "node scripts/run-task.mjs seed",
+    "muse:smoke": "node scripts/run-task.mjs muse-smoke",
+    "postinstall": "prisma generate"
+  },
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@fontsource/manrope": "^5.3.0",
+    "@prisma/client": "^6.19.0",
+    "framer-motion": "^13.4.4",
+    "lucide-react": "^1.48.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-router-dom": "^7.18.4",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.6.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "esbuild": "^0.28.2",
+    "eslint": "^10.11.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.7",
+    "globals": "^17.12.0",
+    "prisma": "^6.19.0",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.70.1",
+    "vite": "^8.3.1",
+    "vitest": "^5.0.2"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}
